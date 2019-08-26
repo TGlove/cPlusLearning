@@ -22,6 +22,8 @@ public:
 	//~linklist();
 	void insertFirst(int);
 	void insertEnd(int);
+	bool search(int val);
+	int getItemAt(int index);
 	void display();
 };
 
@@ -39,6 +41,8 @@ void main()
 	lk.insertEnd(33);
 	lk.insertEnd(44);
 	lk.display();
+	cout << lk.search(10) << endl;
+	cout << lk.getItemAt(5) << endl;
 }
 
 void linklist::insertFirst(int val)
@@ -46,6 +50,7 @@ void linklist::insertFirst(int val)
 	NodeType *newNode = new NodeType;
 	newNode->info = val;
 	newNode->link = head;
+
 	head = newNode;
 	size++;
 }
@@ -68,6 +73,35 @@ void linklist::insertEnd(int val)
 		last->link = newNode;
 	}
 	size++;
+}
+
+bool linklist::search(int val)
+{
+	NodeType *current = head;
+	while (current!=NULL)
+	{
+		if (current->info == val) {
+			return true;
+		}
+		else
+		{
+			current = current->link;
+		}
+	}
+	return false;
+}
+
+int linklist::getItemAt(int index)
+{
+	if (index <0 || index > size) {
+		cout << "index out of bound\n";
+		abort();
+	}
+	NodeType *current = head;
+	for (int i = 0; i < index; i++) {
+		current = current->link;
+	}
+	return current->info;
 }
 
 void linklist::clear()
